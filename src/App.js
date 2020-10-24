@@ -1,9 +1,18 @@
-import React, { useState } from "react";
-import HelloWorld from "./HelloWorld";
+import React, { Component } from "react";
+import Message from "./Message";
+import ButtonGroup from "./ButtonGroup"
+import { store } from './store';
 
-const App = () => {
-  const [tech] = useState("React");
-  return <HelloWorld tech={tech} />;
-};
+class App extends Component {
+  render() {
+    console.log("From app: ", Object.entries(store.getState()));
+    return (
+      <div>
+        <Message message={store.getState().message} />
+        <ButtonGroup infos={["Name", "Email", "Phone", "Address"]} />
+      </div>
+    )
+  }
+}
 
 export default App;
