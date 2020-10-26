@@ -1,7 +1,8 @@
 import React, { Component } from "react";
 import Message from "./Message";
 import ButtonGroup from "./ButtonGroup"
-import { Button } from 'antd';
+import { Button, Spin } from 'antd';
+
 import { store } from './store';
 import "antd/dist/antd.css";
 import { getData } from './utils';
@@ -9,8 +10,16 @@ import { getData } from './utils';
 
 
 class App extends Component {
+  dispatchSpin = () => {
+    const spinAction = {
+      type: "SPIN_ACTION",
+    }
+    console.log('SPIN_ACTION ACTIVE :>>');
+    store.dispatch(spinAction);
+  }
 
   dispatchChangeAction = () => {
+    this.dispatchSpin();
     getData().then(userData => {
       const changeUserAction = {
         type: "CHANGE_USER",
@@ -26,8 +35,10 @@ class App extends Component {
     const containerStyle = {
       display: "flex",
       flexDirection: "column",
-      justifyContent: "center"
+      justifyContent: "space-between"
+
     }
+
     return store.getState().firstHit ?
       (
         <div style={containerStyle}>
@@ -39,6 +50,7 @@ class App extends Component {
           >
             Change User
           </Button>
+          {!store.getState().gotData ? <Spin /> : null}
         </div>
       )
       :

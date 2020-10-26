@@ -10,8 +10,15 @@ export default (state, action) => {
     case "CHANGE_USER":
       return {
         ...action.payload,
-        firstHit: true
+        firstHit: true,
+        gotData: true
       };
+
+    case "SPIN_ACTION":
+      return {
+        ...state,
+        gotData: false
+      }
 
     default:
       return state;

@@ -2,7 +2,7 @@ import React from 'react';
 import { store } from './store';
 import { setMessage } from './actions';
 
-import { Button } from 'antd';
+import { Button, Row, Col } from 'antd';
 
 const dispatchBtnClickAction = (e) => {
   const button = e.target.childNodes[1].textContent.toLowerCase();
@@ -14,24 +14,28 @@ const dispatchBtnClickAction = (e) => {
 
 const ButtonGroup = ({ infos }) => {
   return (
-    <div>
-      {infos.map((info, i) => {
-        return (
-          <Button
-            type="primary"
-            icon="cloud"
-            data-message={store.getState()[info.toLowerCase()]}
-            size="large"
-            shape="round"
-            key={`btn-${i}`}
-            className={`app__button app__button-${i}`}
-            onClick={dispatchBtnClickAction}
-          >
-            {info}
-          </Button>
-        )
-      })}
-    </div>
+    <Row align="middle">
+      {
+        infos.map((info, i) => {
+          return (
+            <Col lg={{ span: 6 }} xs={{ span: 12 }}>
+              <Button
+                type="primary"
+                icon="cloud"
+                data-message={store.getState()[info.toLowerCase()]}
+                size="large"
+                shape="round"
+                key={`btn-${i}`}
+                className={`app__button app__button-${i}`}
+                onClick={dispatchBtnClickAction}
+              >
+                {info}
+              </Button>
+            </Col>
+          )
+        })
+      }
+    </Row >
   )
 }
 
